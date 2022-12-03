@@ -1,20 +1,25 @@
 public class EVA3_1_Ordenamientos {
     public static void main(String[] args) throws Exception {
         int[] array = new int[10];
-        int[] copy = new int[array.length];
-        int[] secondCopy = new int[array.length];
+        int[] selectionSort = new int[array.length];
+        int[] insertionSort = new int[array.length];
+        int[] quickSort = new int[array.length];
         fillArray(array);
 
         System.out.println("Arreglo original: ");
         printArray(array);
-        copyArray(array, copy);
-        copyArray(array, secondCopy);
+        copyArray(array, selectionSort);
+        copyArray(array, insertionSort);
+        copyArray(array, quickSort);
         
         System.out.println("selectionSort array: ");
-        selectionSort(copy);
+        selectionSort(selectionSort);
         System.out.println("insertionSort array: ");
-        insertionSort(secondCopy);
-
+        insertionSort(insertionSort);
+        System.out.println("quickSort array: ");
+        quickSort(quickSort);
+        // System.out.println("insertionSort array: ");
+        // quickSort(quickSort);
 
     }
 
@@ -77,4 +82,46 @@ public class EVA3_1_Ordenamientos {
         }
         printArray(array);
     }
+
+    public static void quickSort(int array[]) {
+        quickSortRec(array, 0, array.length - 1);
+        printArray(array);
+    }
+
+    private static void quickSortRec(int array[], int start, int end) {
+        int pivote, smallIndex, bigIndex, temp;
+        pivote = start;
+        smallIndex = end;
+        bigIndex = start;
+        if(start<end){
+        while (bigIndex < smallIndex) {
+            while (array[bigIndex] <= array[pivote] && (bigIndex < smallIndex)) {
+             
+                bigIndex++;
+            }
+            while (array[smallIndex] > array[pivote]) {
+             
+                smallIndex--;
+                
+            }
+
+            if (bigIndex < smallIndex) {
+                temp = array[bigIndex];
+                array[bigIndex] = array[smallIndex];
+                array[smallIndex] = temp;                
+            }
+        }
+        temp = array[pivote];
+        array[pivote] = array[smallIndex];
+        array[smallIndex] = temp;
+        pivote = smallIndex;
+        
+        quickSortRec(array,start,pivote-1);
+        quickSortRec(array,pivote+1,end);
+        }
+    }
+
 }
+
+    
+
